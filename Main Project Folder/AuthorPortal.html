@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base target="_top">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+
+    /* ============================================================
+       GLOBAL
+       ============================================================ */
+
+    :root {
+      --tiet-maroon: #9E1B32;
+      --tiet-dark: #7F1628;
+      --tiet-light: #FDF1F3;
+      --tiet-pale: #FAF4F5;
+
+      --text-dark: #252525;
+      --text-medium: #5F6368;
+      --text-light: #777;
+
+      --border: #E5E5E5;
+      --background: #F5F6F8;
+      --white: #FFFFFF;
+
+      --success: #16803C;
+      --success-bg: #ECF8F0;
+
+      --warning: #A86200;
+      --warning-bg: #FFF6E5;
+
+      --shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    body {
+      margin: 0;
+      padding: 0;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background: var(--background);
+      color: var(--text-dark);
+    }
+
+
+    /* ============================================================
+       MAIN WRAPPER
+       ============================================================ */
+
+    .page {
+      min-height: 100vh;
+      padding: 28px;
+    }
+
+
+    .container {
+      max-width: 1400px;
+      margin: auto;
+    }
+
+
+    /* ============================================================
+       HEADER
+       ============================================================ */
+
+    .header {
+      background: var(--white);
+
+      border-radius: 16px;
+
+      padding: 26px 32px;
+
+      box-shadow: var(--shadow);
+
+      display: flex;
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 30px;
+
+      border-top: 5px solid var(--tiet-maroon);
+    }
+
+
+    .header-left {
+      display: flex;
+      align-items: center;
+
+      gap: 28px;
+
+      min-width: 0;
+    }
+
+
+    /* Actual TIET logo */
+
+    .tiet-logo {
+      width: 185px;
+      height: auto;
+
+      display: block;
+
+      object-fit: contain;
+
+      flex-shrink: 0;
+    }
+
+
+    .header-divider {
+      width: 1px;
+      height: 72px;
+
+      background: #D9D9D9;
+    }
+
+
+    .ris-title {
+      line-height: 1.1;
+    }
+
+
+    .ris-main {
+      font-size: 38px;
+      font-weight: 800;
+
+      letter-spacing: -0.5px;
+
+      color: var(--tiet-maroon);
+    }
+
+
+    .ris-year {
+      color: #4A4A4A;
+    }
+
+
+    .ris-subtitle {
+      margin-top: 8px;
+
+      font-size: 20px;
+
+      font-weight: 600;
+
+      color: #333;
+    }
+
+
+    .ris-line {
+      margin-top: 12px;
+
+      width: 55px;
+      height: 4px;
+
+      background: var(--tiet-maroon);
+
+      border-radius: 10px;
+    }
+
+
+    .header-right {
+      text-align: right;
+
+      color: var(--text-medium);
+
+      font-size: 13px;
+
+      line-height: 1.5;
+
+      max-width: 300px;
+    }
+
+
+    .header-right strong {
+      color: var(--tiet-maroon);
+    }
+
+
+    /* ============================================================
+       PORTAL BAR
+       ============================================================ */
+
+    .portal-bar {
+      margin-top: 18px;
+
+      background: var(--tiet-maroon);
+
+      color: white;
+
+      padding: 14px 22px;
+
+      border-radius: 10px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+
+    .portal-title {
+      font-size: 17px;
+
+      font-weight: 700;
+    }
+
+
+    .portal-tagline {
+      font-size: 13px;
+
+      opacity: 0.92;
+
+      font-style: italic;
+    }
+
+
+    /* ============================================================
+       LOADING / MESSAGE
+       ============================================================ */
+
+    .message {
+      margin-top: 25px;
+
+      padding: 40px;
+
+      background: white;
+
+      border-radius: 14px;
+
+      text-align: center;
+
+      color: var(--text-medium);
+
+      box-shadow: var(--shadow);
+    }
+
+
+    /* ============================================================
+       AUTHOR / SUMMARY SECTION
+       ============================================================ */
+
+    .summary-grid {
+      margin-top: 20px;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(320px, 1.5fr)
+        repeat(3, 1fr);
+
+      gap: 16px;
+    }
+
+
+    .card {
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 22px;
+
+      box-shadow: var(--shadow);
+
+      border: 1px solid #EEEEEE;
+    }
+
+
+    /* ============================================================
+       AUTHOR CARD
+       ============================================================ */
+
+    .author-card {
+      display: flex;
+
+      align-items: center;
+
+      gap: 18px;
+    }
+
+
+    .avatar {
+      width: 68px;
+      height: 68px;
+
+      border-radius: 50%;
+
+      background: var(--tiet-light);
+
+      color: var(--tiet-maroon);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-size: 23px;
+
+      font-weight: 800;
+
+      flex-shrink: 0;
+
+      border: 2px solid #F1D5DA;
+    }
+
+
+    .author-name {
+      font-size: 20px;
+
+      font-weight: 700;
+
+      margin-bottom: 5px;
+    }
+
+
+    .author-role {
+      color: var(--text-medium);
+
+      font-size: 14px;
+
+      margin-bottom: 8px;
+    }
+
+
+    .author-email {
+      color: var(--text-medium);
+
+      font-size: 13px;
+
+      word-break: break-word;
+    }
+
+
+    /* ============================================================
+       SUMMARY CARDS
+       ============================================================ */
+
+    .summary-card {
+      position: relative;
+
+      overflow: hidden;
+    }
+
+
+    .summary-icon {
+      width: 42px;
+      height: 42px;
+
+      border-radius: 12px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-size: 20px;
+
+      margin-bottom: 13px;
+
+      background: var(--tiet-light);
+
+      color: var(--tiet-maroon);
+    }
+
+
+    .summary-label {
+      font-size: 13px;
+
+      color: var(--text-medium);
+
+      margin-bottom: 5px;
+    }
+
+
+    .summary-value {
+      font-size: 27px;
+
+      font-weight: 800;
+
+      color: var(--text-dark);
+    }
+
+
+    .summary-small {
+      font-size: 12px;
+
+      color: var(--text-light);
+
+      margin-top: 4px;
+    }
+
+
+    .award-card .summary-icon {
+      background: #EEF8F1;
+      color: var(--success);
+    }
+
+
+    .award-card .summary-value {
+      color: var(--success);
+    }
+
+
+    .status-card .summary-icon {
+      background: #EEF3FA;
+      color: #3568A8;
+    }
+
+
+    .status-card .summary-value {
+      color: #3568A8;
+    }
+
+
+    /* ============================================================
+       PUBLICATION SECTION
+       ============================================================ */
+
+    .section {
+      margin-top: 22px;
+
+      background: white;
+
+      border-radius: 16px;
+
+      box-shadow: var(--shadow);
+
+      overflow: hidden;
+    }
+
+
+    .section-header {
+      padding: 24px 26px;
+
+      border-bottom: 1px solid var(--border);
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 20px;
+    }
+
+
+    .section-title-area {
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+    }
+
+
+    .section-icon {
+      width: 42px;
+      height: 42px;
+
+      border-radius: 11px;
+
+      background: var(--tiet-light);
+
+      color: var(--tiet-maroon);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-size: 20px;
+    }
+
+
+    .section-title {
+      font-size: 21px;
+
+      font-weight: 750;
+
+      color: var(--tiet-maroon);
+    }
+
+
+    .section-subtitle {
+      margin-top: 4px;
+
+      color: var(--text-medium);
+
+      font-size: 13px;
+    }
+
+
+    /* ============================================================
+       TABLE
+       ============================================================ */
+
+    .table-wrapper {
+      width: 100%;
+
+      overflow-x: auto;
+    }
+
+
+    table {
+      width: 100%;
+
+      border-collapse: collapse;
+
+      min-width: 900px;
+    }
+
+
+    th {
+      background: #F7F7F8;
+
+      color: #555;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.3px;
+
+      padding: 15px 14px;
+
+      border-bottom: 1px solid var(--border);
+
+      text-align: left;
+
+      white-space: nowrap;
+    }
+
+
+    td {
+      padding: 17px 14px;
+
+      border-bottom: 1px solid #EEEEEE;
+
+      vertical-align: middle;
+
+      font-size: 14px;
+    }
+
+
+    tbody tr:hover {
+      background: #FCFCFC;
+    }
+
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+
+    .master-no {
+      color: var(--tiet-maroon);
+
+      font-weight: 750;
+
+      white-space: nowrap;
+    }
+
+
+    .publication-title {
+      font-weight: 600;
+
+      color: #333;
+
+      line-height: 1.45;
+
+      max-width: 440px;
+    }
+
+
+    .edition-badge {
+      display: inline-block;
+
+      padding: 5px 10px;
+
+      border-radius: 20px;
+
+      background: var(--tiet-light);
+
+      color: var(--tiet-maroon);
+
+      font-size: 12px;
+
+      font-weight: 700;
+    }
+
+
+    .quartile-badge {
+      display: inline-block;
+
+      padding: 5px 9px;
+
+      border-radius: 18px;
+
+      background: #F1F4F8;
+
+      color: #4D5968;
+
+      font-size: 12px;
+
+      font-weight: 700;
+    }
+
+
+    .center {
+      text-align: center;
+    }
+
+
+    .amount {
+      text-align: right;
+
+      color: var(--tiet-maroon);
+
+      font-weight: 800;
+
+      white-space: nowrap;
+
+      font-size: 15px;
+    }
+
+
+    /* ============================================================
+       TOTAL
+       ============================================================ */
+
+    .total-area {
+      padding: 22px 26px;
+
+      background: #FCF6F7;
+
+      border-top: 1px solid #F0DDE0;
+
+      display: flex;
+
+      justify-content: flex-end;
+
+      align-items: center;
+
+      gap: 20px;
+    }
+
+
+    .total-label {
+      color: #555;
+
+      font-size: 15px;
+
+      font-weight: 600;
+    }
+
+
+    .total-value {
+      color: var(--tiet-maroon);
+
+      font-size: 27px;
+
+      font-weight: 850;
+    }
+
+
+    /* ============================================================
+       CONFIRMATION
+       ============================================================ */
+
+    .confirmation-box {
+      margin-top: 22px;
+
+      background: white;
+
+      border-radius: 16px;
+
+      box-shadow: var(--shadow);
+
+      padding: 28px;
+
+      border-left: 5px solid var(--tiet-maroon);
+    }
+
+
+    .confirmation-heading {
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+      margin-bottom: 12px;
+    }
+
+
+    .confirmation-icon {
+      width: 42px;
+      height: 42px;
+
+      border-radius: 50%;
+
+      background: var(--tiet-light);
+
+      color: var(--tiet-maroon);
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-size: 19px;
+    }
+
+
+    .confirmation-title {
+      font-size: 20px;
+
+      font-weight: 750;
+
+      color: var(--tiet-maroon);
+    }
+
+
+    .declaration {
+      color: var(--text-medium);
+
+      font-size: 14px;
+
+      line-height: 1.65;
+
+      margin-bottom: 20px;
+
+      max-width: 900px;
+    }
+
+
+    .checkbox-row {
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 11px;
+
+      margin: 18px 0;
+
+      font-size: 14px;
+
+      line-height: 1.5;
+
+      color: #333;
+
+      cursor: pointer;
+    }
+
+
+    .checkbox-row input {
+      width: 18px;
+      height: 18px;
+
+      accent-color: var(--tiet-maroon);
+
+      margin-top: 2px;
+
+      flex-shrink: 0;
+    }
+
+
+    .confirm-button {
+      border: none;
+
+      background: var(--tiet-maroon);
+
+      color: white;
+
+      padding: 13px 23px;
+
+      border-radius: 8px;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: 0.2s ease;
+    }
+
+
+    .confirm-button:hover:not(:disabled) {
+      background: var(--tiet-dark);
+
+      transform: translateY(-1px);
+    }
+
+
+    .confirm-button:disabled {
+      background: #B9B9B9;
+
+      cursor: not-allowed;
+    }
+
+
+    /* ============================================================
+       CONFIRMED STATUS
+       ============================================================ */
+
+    .confirmed-status {
+      display: none;
+
+      background: var(--success-bg);
+
+      border: 1px solid #CBE8D4;
+
+      border-radius: 12px;
+
+      padding: 20px;
+
+      color: #25643A;
+    }
+
+
+    .confirmed-title {
+      font-size: 19px;
+
+      font-weight: 800;
+
+      margin-bottom: 10px;
+
+      color: var(--success);
+    }
+
+
+    .confirmed-line {
+      margin: 7px 0;
+
+      font-size: 14px;
+    }
+
+
+    .success {
+      display: none;
+
+      margin-top: 18px;
+
+      background: var(--success-bg);
+
+      color: var(--success);
+
+      border: 1px solid #CBE8D4;
+
+      border-radius: 9px;
+
+      padding: 14px 16px;
+
+      font-weight: 700;
+
+      font-size: 14px;
+    }
+
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+
+    .footer {
+      margin-top: 24px;
+
+      padding: 20px 10px;
+
+      color: #777;
+
+      font-size: 12px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      border-top: 1px solid #E5E5E5;
+    }
+
+
+    .footer-right {
+      text-align: right;
+    }
+
+
+    .footer-right strong {
+      color: var(--tiet-maroon);
+    }
+
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+
+    @media (max-width: 1100px) {
+
+      .summary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .author-card {
+        grid-column: span 2;
+      }
+
+      .header-right {
+        display: none;
+      }
+
+    }
+
+
+    @media (max-width: 750px) {
+
+      .page {
+        padding: 14px;
+      }
+
+
+      .header {
+        padding: 22px;
+
+        align-items: flex-start;
+      }
+
+
+      .header-left {
+        gap: 18px;
+      }
+
+
+      .tiet-logo {
+        width: 145px;
+      }
+
+
+      .header-divider {
+        height: 60px;
+      }
+
+
+      .ris-main {
+        font-size: 30px;
+      }
+
+
+      .ris-subtitle {
+        font-size: 17px;
+      }
+
+
+      .portal-bar {
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
+
+
+      .portal-tagline {
+        font-size: 12px;
+      }
+
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+
+      .author-card {
+        grid-column: span 1;
+      }
+
+
+      .section-header {
+        align-items: flex-start;
+
+        padding: 20px;
+      }
+
+
+      .total-area {
+        justify-content: space-between;
+
+        padding: 18px;
+      }
+
+
+      .total-value {
+        font-size: 23px;
+      }
+
+
+      .confirmation-box {
+        padding: 22px;
+      }
+
+
+      .footer {
+        flex-direction: column;
+      }
+
+
+      .footer-right {
+        text-align: left;
+      }
+
+    }
+
+
+    @media (max-width: 500px) {
+
+      .header-left {
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
+
+
+      .header-divider {
+        display: none;
+      }
+
+
+      .tiet-logo {
+        width: 155px;
+      }
+
+
+      .ris-main {
+        font-size: 28px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+  <div class="container">
+
+
+    <!-- ========================================================
+         HEADER
+         ======================================================== -->
+
+    <div class="header">
+
+      <div class="header-left">
+
+
+        <!-- OFFICIAL TIET LOGO -->
+
+        <img
+          src="https://www.thapar.edu/images/logo.png"
+          alt="Thapar Institute of Engineering & Technology"
+          class="tiet-logo"
+        >
+
+
+        <div class="header-divider"></div>
+
+
+        <div class="ris-title">
+
+          <div class="ris-main">
+            RIS <span class="ris-year">2025</span>
+          </div>
+
+          <div class="ris-subtitle">
+            Research Incentive Scheme
+          </div>
+
+          <div class="ris-line"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         PORTAL BAR
+         ======================================================== -->
+
+    <div class="portal-bar">
+
+      <div class="portal-title">
+        Author Portal
+      </div>
+
+      <div class="portal-tagline">
+        Recognizing Research. Encouraging Excellence.
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         LOADING
+         ======================================================== -->
+
+    <div
+      id="loading"
+      class="message"
+    >
+      Loading your publication details...
+    </div>
+
+
+
+    <!-- ========================================================
+         MAIN CONTENT
+         ======================================================== -->
+
+    <div
+      id="content"
+      style="display:none;"
+    >
+
+
+      <!-- ======================================================
+           AUTHOR + SUMMARY CARDS
+           ====================================================== -->
+
+      <div class="summary-grid">
+
+
+        <!-- AUTHOR CARD -->
+
+        <div class="card author-card">
+
+          <div
+            id="avatar"
+            class="avatar"
+          >
+            --
+          </div>
+
+
+          <div>
+
+            <div
+              id="authorName"
+              class="author-name"
+            >
+              --
+            </div>
+
+
+            <div
+              id="authorRole"
+              class="author-role"
+            >
+              Author
+            </div>
+
+
+            <div
+              id="authorEmail"
+              class="author-email"
+            >
+              --
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- TOTAL PUBLICATIONS -->
+
+        <div class="card summary-card">
+
+          <div class="summary-icon">
+            📄
+          </div>
+
+          <div class="summary-label">
+            Total Publications
+          </div>
+
+          <div
+            id="publicationCount"
+            class="summary-value"
+          >
+            0
+          </div>
+
+          <div class="summary-small">
+            RIS 2025
+          </div>
+
+        </div>
+
+
+
+        <!-- TOTAL AWARD -->
+
+        <div class="card summary-card award-card">
+
+          <div class="summary-icon">
+            ₹
+          </div>
+
+          <div class="summary-label">
+            Total Award Amount
+          </div>
+
+          <div
+            id="summaryTotal"
+            class="summary-value"
+          >
+            ₹0
+          </div>
+
+          <div class="summary-small">
+            Calculated award
+          </div>
+
+        </div>
+
+
+
+        <!-- CONFIRMATION STATUS -->
+
+        <div class="card summary-card status-card">
+
+          <div class="summary-icon">
+            ✓
+          </div>
+
+          <div class="summary-label">
+            Confirmation Status
+          </div>
+
+          <div
+            id="summaryStatus"
+            class="summary-value"
+          >
+            Pending
+          </div>
+
+          <div
+            id="summaryStatusSmall"
+            class="summary-small"
+          >
+            Awaiting confirmation
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- ======================================================
+           PUBLICATIONS
+           ====================================================== -->
+
+      <div class="section">
+
+
+        <div class="section-header">
+
+          <div class="section-title-area">
+
+            <div class="section-icon">
+              📚
+            </div>
+
+            <div>
+
+              <div class="section-title">
+                Your Publication Awards
+              </div>
+
+              <div class="section-subtitle">
+                Publications listed under your Thapar account
+                and the corresponding RIS 2025 award amount.
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Master Sr. No.
+                </th>
+
+                <th>
+                  Publication Title
+                </th>
+
+                <th>
+                  Edition / Indexing
+                </th>
+
+                <th class="center">
+                  Quartile
+                </th>
+
+                <th class="center">
+                  Total Authors
+                </th>
+
+                <th class="center">
+                  Impact Factor
+                </th>
+
+                <th class="amount">
+                  Your Award Amount
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody id="papers"></tbody>
+
+          </table>
+
+        </div>
+
+
+
+        <!-- TOTAL -->
+
+        <div class="total-area">
+
+          <div class="total-label">
+            Total RIS 2025 Amount
+          </div>
+
+          <div
+            id="total"
+            class="total-value"
+          >
+            ₹0
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- ======================================================
+           CONFIRMATION
+           ====================================================== -->
+
+      <div class="confirmation-box">
+
+
+        <div class="confirmation-heading">
+
+          <div class="confirmation-icon">
+            ✓
+          </div>
+
+          <div class="confirmation-title">
+            Review & Confirm
+          </div>
+
+        </div>
+
+
+        <!-- PENDING CONFIRMATION -->
+
+        <div id="pendingConfirmation">
+
+
+          <div class="declaration">
+
+            I have reviewed the publication details and
+            calculated RIS 2025 award amount shown above
+            and confirm that the information is correct.
+
+          </div>
+
+
+          <label class="checkbox-row">
+
+            <input
+              type="checkbox"
+              id="confirmCheckbox"
+              onchange="toggleConfirmButton()"
+            >
+
+            <span>
+              I confirm that the above details and calculated
+              amount are correct.
+            </span>
+
+          </label>
+
+
+          <button
+            id="confirmButton"
+            class="confirm-button"
+            disabled
+            onclick="confirmCalculation()"
+          >
+            Confirm RIS 2025 Calculation
+          </button>
+
+
+        </div>
+
+
+
+        <!-- ALREADY CONFIRMED -->
+
+        <div
+          id="confirmedStatus"
+          class="confirmed-status"
+        >
+
+          <div class="confirmed-title">
+            ✓ Calculation Confirmed
+          </div>
+
+
+          <div class="confirmed-line">
+
+            Your RIS 2025 publication award calculation
+            has already been confirmed.
+
+          </div>
+
+
+          <div class="confirmed-line">
+
+            <strong>
+              Confirmed on:
+            </strong>
+
+            <span id="confirmationDate"></span>
+
+          </div>
+
+
+          <div class="confirmed-line">
+
+            <strong>
+              Confirmation account:
+            </strong>
+
+            <span id="confirmationEmail"></span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- SUCCESS MESSAGE -->
+
+        <div
+          id="successMessage"
+          class="success"
+        >
+          Your confirmation has been recorded successfully.
+        </div>
+
+
+      </div>
+
+
+
+      <!-- ======================================================
+           FOOTER
+           ====================================================== -->
+
+      <div class="footer">
+
+        <div>
+          Thapar Institute of Engineering & Technology
+          &nbsp; | &nbsp;
+          RIS 2025
+        </div>
+
+
+        <div class="footer-right">
+
+          This site is maintained & developed by Harmanjit Singh | Dept. of Dean of Research:
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+
+/* ================================================================
+   LOAD AUTHOR DATA
+   ================================================================ */
+
+google.script.run
+
+  .withSuccessHandler(showData)
+
+  .withFailureHandler(showError)
+
+  .getAuthorData();
+
+
+
+/* ================================================================
+   DISPLAY AUTHOR DATA
+   ================================================================ */
+
+function showData(data) {
+
+
+  document.getElementById("loading").style.display = "none";
+
+
+  /* --------------------------------------------------------------
+     NO RECORDS
+     -------------------------------------------------------------- */
+
+  if (!data || !data.authorFound) {
+
+    document.getElementById("loading").style.display = "block";
+
+    document.getElementById("loading").innerHTML =
+      "No RIS 2025 records were found for your Thapar account.";
+
+    return;
+
+  }
+
+
+  /* --------------------------------------------------------------
+     SHOW CONTENT
+     -------------------------------------------------------------- */
+
+  document.getElementById("content").style.display = "block";
+
+
+  /* --------------------------------------------------------------
+     AUTHOR INFORMATION
+     -------------------------------------------------------------- */
+
+  const authorName =
+    data.authorName || "Author";
+
+
+  document.getElementById("authorName").textContent =
+    authorName;
+
+
+  document.getElementById("authorEmail").textContent =
+    data.email || "";
+
+
+  document.getElementById("authorRole").textContent =
+    data.ecode
+      ? "Employee / Roll No.: " + data.ecode
+      : "Author";
+
+
+  /* --------------------------------------------------------------
+     AUTHOR INITIALS
+     -------------------------------------------------------------- */
+
+  const initials =
+    authorName
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(function(word) {
+        return word.charAt(0).toUpperCase();
+      })
+      .join("");
+
+
+  document.getElementById("avatar").textContent =
+    initials || "A";
+
+
+  /* --------------------------------------------------------------
+     PUBLICATIONS
+     -------------------------------------------------------------- */
+
+  const tbody =
+    document.getElementById("papers");
+
+
+  tbody.innerHTML = "";
+
+
+  const papers =
+    Array.isArray(data.papers)
+      ? data.papers
+      : [];
+
+
+  papers.forEach(function(paper) {
+
+
+    const row =
+      document.createElement("tr");
+
+
+    const edition =
+      paper.edition || "";
+
+
+    const quartile =
+      paper.quartile || "";
+
+
+    const impactFactor =
+      paper.impactFactor || "";
+
+
+    const amount =
+      Number(paper.amount || 0);
+
+
+    row.innerHTML =
+
+      "<td>" +
+        "<span class='master-no'>" +
+          escapeHtml(paper.master) +
+        "</span>" +
+      "</td>" +
+
+
+      "<td>" +
+        "<div class='publication-title'>" +
+          escapeHtml(paper.title) +
+        "</div>" +
+      "</td>" +
+
+
+      "<td>" +
+        "<span class='edition-badge'>" +
+          escapeHtml(edition || "—") +
+        "</span>" +
+      "</td>" +
+
+
+      "<td class='center'>" +
+        "<span class='quartile-badge'>" +
+          escapeHtml(quartile || "—") +
+        "</span>" +
+      "</td>" +
+
+
+      "<td class='center'>" +
+        Number(paper.authorCount || 0) +
+      "</td>" +
+
+
+      "<td class='center'>" +
+        escapeHtml(impactFactor || "—") +
+      "</td>" +
+
+
+      "<td class='amount'>" +
+        "₹" +
+        amount.toLocaleString("en-IN") +
+      "</td>";
+
+
+    tbody.appendChild(row);
+
+  });
+
+
+  /* --------------------------------------------------------------
+     TOTAL
+     -------------------------------------------------------------- */
+
+  const total =
+    Number(data.total || 0);
+
+
+  const formattedTotal =
+    total.toLocaleString("en-IN");
+
+
+  document.getElementById("total").textContent =
+    "₹" + formattedTotal;
+
+
+  document.getElementById("summaryTotal").textContent =
+    "₹" + formattedTotal;
+
+
+  document.getElementById("publicationCount").textContent =
+    papers.length;
+
+
+  /* --------------------------------------------------------------
+     CONFIRMATION STATUS
+     -------------------------------------------------------------- */
+
+  if (data.confirmed) {
+
+
+    document.getElementById("summaryStatus").textContent =
+      "Confirmed";
+
+
+    document.getElementById("summaryStatusSmall").textContent =
+      "Calculation confirmed";
+
+
+    document.getElementById("pendingConfirmation")
+      .style.display = "none";
+
+
+    document.getElementById("confirmedStatus")
+      .style.display = "block";
+
+
+    document.getElementById("confirmationDate")
+      .textContent =
+        data.confirmationDate || "";
+
+
+    document.getElementById("confirmationEmail")
+      .textContent =
+        data.confirmationEmail || data.email || "";
+
+
+  } else {
+
+
+    document.getElementById("summaryStatus").textContent =
+      "Pending";
+
+
+    document.getElementById("summaryStatusSmall").textContent =
+      "Awaiting confirmation";
+
+
+  }
+
+}
+
+
+
+/* ================================================================
+   CHECKBOX
+   ================================================================ */
+
+function toggleConfirmButton() {
+
+
+  const checkbox =
+    document.getElementById("confirmCheckbox");
+
+
+  const button =
+    document.getElementById("confirmButton");
+
+
+  button.disabled =
+    !checkbox.checked;
+
+}
+
+
+
+/* ================================================================
+   CONFIRM CALCULATION
+   ================================================================ */
+
+function confirmCalculation() {
+
+
+  const checkbox =
+    document.getElementById("confirmCheckbox");
+
+
+  if (!checkbox.checked) {
+    return;
+  }
+
+
+  const button =
+    document.getElementById("confirmButton");
+
+
+  button.disabled = true;
+
+
+  button.textContent =
+    "Recording confirmation...";
+
+
+  google.script.run
+
+    .withSuccessHandler(function(result) {
+
+
+      if (result && result.success) {
+
+
+        /* --------------------------------------------------------
+           HIDE PENDING CONFIRMATION
+           -------------------------------------------------------- */
+
+        document.getElementById("pendingConfirmation")
+          .style.display = "none";
+
+
+        /* --------------------------------------------------------
+           SHOW CONFIRMED STATUS
+           -------------------------------------------------------- */
+
+        document.getElementById("confirmedStatus")
+          .style.display = "block";
+
+
+        /* --------------------------------------------------------
+           UPDATE SUMMARY STATUS
+           -------------------------------------------------------- */
+
+        document.getElementById("summaryStatus")
+          .textContent = "Confirmed";
+
+
+        document.getElementById("summaryStatusSmall")
+          .textContent = "Calculation confirmed";
+
+
+        /* --------------------------------------------------------
+           CONFIRMATION DETAILS
+           -------------------------------------------------------- */
+
+        document.getElementById("confirmationDate")
+          .textContent =
+            result.confirmationDate || "";
+
+
+        document.getElementById("confirmationEmail")
+          .textContent =
+            result.confirmationEmail || "";
+
+
+        /* --------------------------------------------------------
+           SUCCESS MESSAGE
+           -------------------------------------------------------- */
+
+        document.getElementById("successMessage")
+          .style.display = "block";
+
+
+      } else {
+
+
+        button.disabled = false;
+
+
+        button.textContent =
+          "Confirm RIS 2025 Calculation";
+
+
+        alert(
+          result && result.message
+            ? result.message
+            : "Unable to record confirmation."
+        );
+
+      }
+
+    })
+
+
+    .withFailureHandler(function(error) {
+
+
+      button.disabled = false;
+
+
+      button.textContent =
+        "Confirm RIS 2025 Calculation";
+
+
+      alert(
+        "Unable to record confirmation. Please try again."
+      );
+
+    })
+
+
+    .confirmAuthorCalculation();
+
+}
+
+
+
+/* ================================================================
+   ERROR
+   ================================================================ */
+
+function showError(error) {
+
+
+  document.getElementById("loading").innerHTML =
+    "Unable to load your RIS 2025 information. Please try again later.";
+
+}
+
+
+
+/* ================================================================
+   HTML ESCAPE
+   ================================================================ */
+
+function escapeHtml(text) {
+
+
+  const div =
+    document.createElement("div");
+
+
+  div.textContent =
+    text == null ? "" : String(text);
+
+
+  return div.innerHTML;
+
+}
+
+</script>
+
+
+</body>
+
+</html>
