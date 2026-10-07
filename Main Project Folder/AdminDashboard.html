@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <base target="_top">
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 30px;
+      color: #222;
+    }
+
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+
+    /* ==========================================================
+       SUMMARY
+       ========================================================== */
+
+    .summary {
+      display: grid;
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 15px;
+
+      margin-bottom: 25px;
+    }
+
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.08);
+    }
+
+
+    .card-title {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+
+    .card-value {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+
+    /* ==========================================================
+       SEARCH
+       ========================================================== */
+
+    .search-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.08);
+    }
+
+
+    #search {
+      width: 100%;
+      box-sizing: border-box;
+
+      padding: 12px;
+
+      border: 1px solid #ccc;
+      border-radius: 6px;
+
+      font-size: 15px;
+    }
+
+
+    /* ==========================================================
+       TABLE
+       ========================================================== */
+
+    .table-container {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.08);
+    }
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+
+    th {
+      background: #f0f2f5;
+      padding: 13px;
+      text-align: left;
+    }
+
+
+    td {
+      padding: 13px;
+      border-bottom: 1px solid #eee;
+    }
+
+
+    .amount {
+      text-align: right;
+      font-weight: bold;
+    }
+
+
+    .confirmed {
+      color: #1b5e20;
+      font-weight: bold;
+    }
+
+
+    .pending {
+      color: #b26a00;
+      font-weight: bold;
+    }
+
+
+    .loading {
+      text-align: center;
+      padding: 50px;
+    }
+
+
+    .error {
+      background: #ffebee;
+      color: #b00020;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+
+    .unauthorized {
+      text-align: center;
+      background: white;
+      padding: 50px;
+      border-radius: 10px;
+    }
+
+
+    @media(max-width: 800px) {
+
+      .summary {
+        grid-template-columns: 1fr 1fr;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+  <h1>RIS 2025 – Admin Confirmation Dashboard</h1>
+
+
+  <div class="subtitle">
+
+    Monitor author confirmation status for RIS 2025 publication awards.
+
+  </div>
+
+
+  <!-- ==========================================================
+       LOADING
+       ========================================================== -->
+
+  <div id="loading" class="loading">
+
+    Loading dashboard...
+
+  </div>
+
+
+  <!-- ==========================================================
+       CONTENT
+       ========================================================== -->
+
+  <div id="content" style="display:none;">
+
+
+    <!-- ========================================================
+         SUMMARY
+         ======================================================== -->
+
+    <div class="summary">
+
+
+      <div class="card">
+
+        <div class="card-title">
+          Total Authors
+        </div>
+
+        <div
+          class="card-value"
+          id="totalAuthors"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-title">
+          Confirmed
+        </div>
+
+        <div
+          class="card-value confirmed"
+          id="confirmedAuthors"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-title">
+          Pending
+        </div>
+
+        <div
+          class="card-value pending"
+          id="pendingAuthors"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-title">
+          Total Award Amount
+        </div>
+
+        <div
+          class="card-value"
+          id="totalAmount"
+        >
+          ₹0
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- ========================================================
+         SEARCH
+         ======================================================== -->
+
+    <div class="search-box">
+
+      <input
+        type="text"
+        id="search"
+        placeholder="Search by author, email or employee/roll number..."
+        onkeyup="filterAuthors()"
+      >
+
+    </div>
+
+
+    <!-- ========================================================
+         TABLE
+         ======================================================== -->
+
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Author</th>
+
+            <th>Email</th>
+
+            <th>Employee/Roll No.</th>
+
+            <th>Papers</th>
+
+            <th>Total Amount</th>
+
+            <th>Status</th>
+
+            <th>Confirmed On</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="authorsTable"></tbody>
+
+      </table>
+
+    </div>
+
+
+  </div>
+
+
+  <!-- ==========================================================
+       UNAUTHORIZED
+       ========================================================== -->
+
+  <div
+    id="unauthorized"
+    class="unauthorized"
+    style="display:none;"
+  >
+
+    <h2>Access Denied</h2>
+
+    <p>
+      Your Thapar account is not authorized to access
+      the RIS 2025 administrative dashboard.
+    </p>
+
+  </div>
+
+
+  <!-- ==========================================================
+       ERROR
+       ========================================================== -->
+
+  <div
+    id="error"
+    class="error"
+    style="display:none;"
+  ></div>
+
+
+</div>
+
+
+<script>
+
+
+let allAuthors = [];
+
+
+
+/* ================================================================
+   LOAD ADMIN DATA
+   ================================================================ */
+
+google.script.run
+
+  .withSuccessHandler(showDashboard)
+
+  .withFailureHandler(showError)
+
+  .getAdminData();
+
+
+
+/* ================================================================
+   DISPLAY DASHBOARD
+   ================================================================ */
+
+function showDashboard(data) {
+
+
+  document.getElementById("loading")
+    .style.display = "none";
+
+
+  // --------------------------------------------------------------
+  // ACCESS DENIED
+  // --------------------------------------------------------------
+
+  if (!data || !data.authorized) {
+
+    document.getElementById("unauthorized")
+      .style.display = "block";
+
+    return;
+
+  }
+
+
+  // --------------------------------------------------------------
+  // SHOW CONTENT
+  // --------------------------------------------------------------
+
+  document.getElementById("content")
+    .style.display = "block";
+
+
+  allAuthors =
+    data.authors || [];
+
+
+  // --------------------------------------------------------------
+  // SUMMARY
+  // --------------------------------------------------------------
+
+  document.getElementById("totalAuthors")
+    .textContent =
+      data.summary.totalAuthors;
+
+
+  document.getElementById("confirmedAuthors")
+    .textContent =
+      data.summary.confirmedAuthors;
+
+
+  document.getElementById("pendingAuthors")
+    .textContent =
+      data.summary.pendingAuthors;
+
+
+  document.getElementById("totalAmount")
+    .textContent =
+      "₹" +
+      Number(
+        data.summary.totalAmount
+      ).toLocaleString("en-IN");
+
+
+  // --------------------------------------------------------------
+  // TABLE
+  // --------------------------------------------------------------
+
+  renderAuthors(allAuthors);
+
+}
+
+
+
+/* ================================================================
+   RENDER AUTHORS
+   ================================================================ */
+
+function renderAuthors(authors) {
+
+
+  const tbody =
+    document.getElementById("authorsTable");
+
+
+  tbody.innerHTML = "";
+
+
+  authors.forEach(function(author) {
+
+
+    const row =
+      document.createElement("tr");
+
+
+    const status =
+      author.confirmed
+        ? "✓ Confirmed"
+        : "⏳ Pending";
+
+
+    const statusClass =
+      author.confirmed
+        ? "confirmed"
+        : "pending";
+
+
+    row.innerHTML =
+
+      "<td>" +
+      escapeHtml(author.authorName) +
+      "</td>" +
+
+      "<td>" +
+      escapeHtml(author.email) +
+      "</td>" +
+
+      "<td>" +
+      escapeHtml(author.ecode) +
+      "</td>" +
+
+      "<td>" +
+      author.papers +
+      "</td>" +
+
+      "<td class='amount'>₹" +
+      Number(author.totalAmount)
+        .toLocaleString("en-IN") +
+      "</td>" +
+
+      "<td class='" +
+      statusClass +
+      "'>" +
+      status +
+      "</td>" +
+
+      "<td>" +
+      escapeHtml(
+        author.confirmationDate || "—"
+      ) +
+      "</td>";
+
+
+    tbody.appendChild(row);
+
+  });
+
+}
+
+
+
+/* ================================================================
+   SEARCH
+   ================================================================ */
+
+function filterAuthors() {
+
+
+  const search =
+    document.getElementById("search")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if (!search) {
+
+    renderAuthors(allAuthors);
+
+    return;
+
+  }
+
+
+  const filtered =
+    allAuthors.filter(function(author) {
+
+
+      return (
+
+        String(author.authorName)
+          .toLowerCase()
+          .includes(search)
+
+        ||
+
+        String(author.email)
+          .toLowerCase()
+          .includes(search)
+
+        ||
+
+        String(author.ecode)
+          .toLowerCase()
+          .includes(search)
+
+      );
+
+    });
+
+
+  renderAuthors(filtered);
+
+}
+
+
+
+/* ================================================================
+   ERROR
+   ================================================================ */
+
+function showError(error) {
+
+
+  document.getElementById("loading")
+    .style.display = "none";
+
+
+  const errorBox =
+    document.getElementById("error");
+
+
+  errorBox.style.display = "block";
+
+
+  errorBox.textContent =
+    "Unable to load the administrative dashboard.";
+
+}
+
+
+
+/* ================================================================
+   HTML ESCAPE
+   ================================================================ */
+
+function escapeHtml(text) {
+
+
+  const div =
+    document.createElement("div");
+
+
+  div.textContent =
+    text || "";
+
+
+  return div.innerHTML;
+
+}
+
+</script>
+
+
+</body>
+
+</html>
